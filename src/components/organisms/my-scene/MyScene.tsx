@@ -15,12 +15,17 @@ export const MyScene = () => {
   const groupRef = useRef<THREE.Group>(null);
 
   useFrame((state, delta) => {
+    const angle = state.clock.getElapsedTime();
+    state.camera.position.x = Math.sin(angle) + delta * 2;
+    state.camera.position.z = Math.cos(angle) + delta * 2;
+    state.camera.lookAt(0, 0, 0);
+
     cubeRef.current!.material.color.r = updateColor(
       cubeRef.current!.material.color.r,
       delta
     );
 
-    groupRef.current!.rotation.y += delta;
+    groupRef.current!.rotation.y += delta * 2;
   });
 
   return (
