@@ -1,8 +1,12 @@
-export const Geometry = () => {
+interface GeometryProps {
+  myRef: React.MutableRefObject<THREE.Mesh | null>;
+}
+
+export const Geometry = ({ myRef }: GeometryProps) => {
   return (
-    <mesh>
-      <boxBufferGeometry attach="geometry" />
-      <meshBasicMaterial attach="material" color="green" wireframe />
+    <mesh ref={myRef} rotation-y={Math.PI * 0.25} position-x={2} scale={1.5}>
+      <boxBufferGeometry />
+      <meshBasicMaterial color="green" />
     </mesh>
   );
 };
