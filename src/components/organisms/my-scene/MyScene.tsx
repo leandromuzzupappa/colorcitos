@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
+import { MeshBasicMaterial } from "three";
 import { Ball } from "@/components/molecules/ball/Ball";
 import { Floor } from "@/components/molecules/floor/Floor";
 import { Geometry } from "@/components/molecules/geometry/Geometry";
@@ -20,10 +21,8 @@ export const MyScene = () => {
     state.camera.position.z = Math.cos(angle) + delta * 2;
     state.camera.lookAt(0, 0, 0);
 
-    cubeRef.current!.material.color.r = updateColor(
-      cubeRef.current!.material.color.r,
-      delta
-    );
+    const cubeMaterial = cubeRef.current!.material as MeshBasicMaterial;
+    cubeMaterial.color.r = updateColor(cubeMaterial.color.r, delta);
 
     groupRef.current!.rotation.y += delta * 2;
   });
