@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
+import { OrbitControls, TransformControls } from "@react-three/drei";
 import { MeshBasicMaterial } from "three";
 import { Ball } from "@/components/molecules/ball/Ball";
 import { Floor } from "@/components/molecules/floor/Floor";
@@ -10,12 +11,13 @@ import { updateColor } from "@/utils/utils";
 export const MyScene = () => {
   const cubeRef = useRef<THREE.Mesh>(null);
   const groupRef = useRef<THREE.Group>(null);
+  const customGeometryRef = useRef<THREE.Mesh>(null);
 
   useFrame((state, delta) => {
-    const angle = state.clock.getElapsedTime();
+    /* const angle = state.clock.getElapsedTime();
     state.camera.position.x = Math.sin(angle) + delta * 2;
     state.camera.position.z = Math.cos(angle) + delta * 2;
-    state.camera.lookAt(0, 0, 0);
+    state.camera.lookAt(0, 0, 0); */
 
     const cubeMaterial = cubeRef.current!.material as MeshBasicMaterial;
     cubeMaterial.color.r = updateColor(cubeMaterial.color.r, delta);
@@ -32,12 +34,15 @@ export const MyScene = () => {
       />
       <ambientLight intensity={0.05} />
 
+      <OrbitControls />
+
       <group ref={groupRef}>
         <Geometry myRef={cubeRef} />
         <Ball />
       </group>
 
-      <CustomGeometry />
+      <TransformControls />
+      <CustomGeometry myRef={customGeometryRef} />
 
       <Floor />
     </>
