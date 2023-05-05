@@ -1,7 +1,8 @@
 import * as THREE from "three";
 import { useMemo, useRef, useEffect } from "react";
+import { ICustomGeometryProps } from "@/data/interfaces";
 
-export const CustomGeometry = () => {
+export const CustomGeometry = ({ myRef }: ICustomGeometryProps) => {
   const geometryRef = useRef<THREE.BufferGeometry>(null);
 
   const triangles = 10;
@@ -24,7 +25,7 @@ export const CustomGeometry = () => {
   }, []);
 
   return (
-    <mesh>
+    <mesh ref={myRef}>
       <bufferGeometry ref={geometryRef}>
         <bufferAttribute
           attach={"attributes-position"}
