@@ -5,11 +5,7 @@ import { Ball } from "@/components/molecules/ball/Ball";
 import { Floor } from "@/components/molecules/floor/Floor";
 import { Geometry } from "@/components/molecules/geometry/Geometry";
 import { CustomGeometry } from "@/components/molecules/custom-geometry/CustomGeometry";
-
-function updateColor(currentRedValue: number, deltaTime: number): number {
-  let newRedValue = currentRedValue + deltaTime;
-  return Math.min(Math.max(newRedValue, 0), 255);
-}
+import { updateColor } from "@/utils/utils";
 
 export const MyScene = () => {
   const cubeRef = useRef<THREE.Mesh>(null);
