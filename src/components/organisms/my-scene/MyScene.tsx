@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { OrbitControls, TransformControls } from "@react-three/drei";
-import { MeshBasicMaterial } from "three";
+import { MeshBasicMaterial, Object3D } from "three";
 import { Ball } from "@/components/molecules/ball/Ball";
 import { Floor } from "@/components/molecules/floor/Floor";
 import { Geometry } from "@/components/molecules/geometry/Geometry";
@@ -34,14 +34,14 @@ export const MyScene = () => {
       />
       <ambientLight intensity={0.05} />
 
-      <OrbitControls />
+      <OrbitControls makeDefault />
 
       <group ref={groupRef}>
         <Geometry myRef={cubeRef} />
         <Ball />
       </group>
 
-      <TransformControls />
+      <TransformControls object={customGeometryRef.current as Object3D} />
       <CustomGeometry myRef={customGeometryRef} />
 
       <Floor />
