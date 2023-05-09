@@ -6,7 +6,7 @@ import { easing } from "maath";
 import styles from "./Model.module.scss";
 
 export const LaChasseModel = () => {
-  const { nodes } = useGLTF("/la_chasse/scene-transformed.glb");
+  const { nodes } = useGLTF("/la_chasse/scene-transformed.glb") as any; // Fix types
 
   const modelRef = useRef<THREE.Group>(null);
   const lightRef = useRef<THREE.SpotLight>(null);
