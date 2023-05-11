@@ -12,7 +12,6 @@ extend({ DoorMaterial });
 
 export const TheWallPage = () => {
   const doorRef = useRef<any>(null);
-  const ballRef = useRef<any>(null);
 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
@@ -38,7 +37,6 @@ export const TheWallPage = () => {
 
       <mesh castShadow receiveShadow position={[-1, -0.75, 2]} scale={0.5}>
         <sphereBufferGeometry args={[0.5, 32, 32]} />
-        {/* <meshLambertMaterial color="blue" /> */}
 
         <meshStandardMaterial
           color="#000"
@@ -62,34 +60,6 @@ export const TheWallPage = () => {
         </mesh>
       </TransformControls>
 
-      {/* <Floor
-          mirror={0.0}
-          blur={[0, 30]}
-          mixBlur={1}
-          mixStrength={1.1}
-          resolution={1024}
-          roughness={0.5}
-          metalness={0.89}
-          depthScale={0}
-          minDepthThreshold={0.9}
-          maxDepthThreshold={1}
-          depthToBlurRatioBias={0.25}
-          distortion={1}
-        /> */}
-
-      {/* <Floor
-          mirror={1.5}
-          blur={[500, 500]}
-          resolution={2048}
-          mixBlur={1}
-          mixStrength={50}
-          roughness={1}
-          depthScale={1.2}
-          minDepthThreshold={0.4}
-          maxDepthThreshold={1.4}
-          color="#050505"
-          metalness={0.5}
-        /> */}
       <Floor
         mirror={1.5}
         blur={[400, 100]}
