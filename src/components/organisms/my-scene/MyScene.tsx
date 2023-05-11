@@ -3,6 +3,7 @@ import { useFrame } from "@react-three/fiber";
 import {
   OrbitControls,
   PivotControls,
+  Text,
   TransformControls,
 } from "@react-three/drei";
 import { MeshBasicMaterial, Object3D } from "three";
@@ -55,7 +56,11 @@ export const MyScene = () => {
       <TransformControls object={customGeometryRef.current as Object3D} />
       <CustomGeometry myRef={customGeometryRef} />
 
-      <Floor />
+      <PivotControls>
+        <Text>I LOVE R3F</Text>
+      </PivotControls>
+
+      <Floor mirror={0.5} />
     </>
   );
 };
