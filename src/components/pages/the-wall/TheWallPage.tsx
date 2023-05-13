@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import { useRef } from "react";
 import { extend, useFrame } from "@react-three/fiber";
 import {
@@ -6,9 +7,8 @@ import {
   TransformControls,
 } from "@react-three/drei";
 import { Floor } from "@/components/molecules/floor/Floor";
-import { DoorMaterial } from "@/components/molecules/door-material/DoorMaterial";
-
-extend({ DoorMaterial });
+import { vertexShader } from "@/webgl/shaders/door-material/vertexShader";
+import { fragmentShader } from "@/webgl/shaders/door-material/fragmentShader";
 
 export const TheWallPage = () => {
   const doorRef = useRef<any>(null);
@@ -19,10 +19,11 @@ export const TheWallPage = () => {
     doorRef.current.material.uniforms.u_time.value = time;
 
     if (doorRef.current.material.uniforms.u_resolution.value.x === 0) {
+      // Set the size of the boxGeometry
       doorRef.current.material.uniforms.u_resolution.value.x =
-        window.innerWidth;
+        doorRef.current.geometry.parameters.width * 400 + time;
       doorRef.current.material.uniforms.u_resolution.value.y =
-        window.innerHeight;
+        doorRef.current.geometry.parameters.height * 1000 + time;
     }
   });
 
@@ -56,7 +57,14 @@ export const TheWallPage = () => {
           rotation={[0, -0.3, 0]}
         >
           <boxGeometry args={[8, 4, 0.2]} />
-          <doorMaterial />
+          <shaderMaterial
+            vertexShader={vertexShader}
+            fragmentShader={fragmentShader}
+            uniforms={{
+              u_time: { value: 0 },
+              u_resolution: { value: new THREE.Vector2(0, 0) },
+            }}
+          />
         </mesh>
       </TransformControls>
 
