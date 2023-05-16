@@ -25,7 +25,7 @@ export const CustomGeometry = ({ myRef }: ICustomGeometryProps) => {
   }, []);
 
   return (
-    <mesh ref={myRef}>
+    <mesh ref={myRef} castShadow position-y={5}>
       <bufferGeometry ref={geometryRef}>
         <bufferAttribute
           attach={"attributes-position"}

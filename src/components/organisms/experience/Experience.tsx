@@ -5,7 +5,7 @@ import styles from "./Experience.module.scss";
 export const Experience = () => {
   return (
     <div className={styles.pepitos}>
-      <Canvas camera={{ position: [0, 0, 5] }}>
+      <Canvas shadows camera={{ position: [0, 0, 5] }}>
         <MyScene />
       </Canvas>
     </div>

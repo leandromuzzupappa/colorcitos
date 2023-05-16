@@ -4,7 +4,7 @@ import styles from "./Ball.module.scss";
 
 export const Ball = ({ myRef }: IBallProps) => {
   return (
-    <mesh position-x={-2} ref={myRef}>
+    <mesh castShadow position-x={-2} ref={myRef}>
       <sphereGeometry />
       <meshStandardMaterial color="yellow" />
       <Html wrapperClass={styles.oreos} position={[0, 2, 0]} occlude="blending">
