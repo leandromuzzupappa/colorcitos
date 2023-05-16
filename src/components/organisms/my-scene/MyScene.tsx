@@ -1,66 +1,54 @@
 import { useRef } from "react";
-import { useFrame } from "@react-three/fiber";
-import {
-  OrbitControls,
-  PivotControls,
-  Text,
-  TransformControls,
-} from "@react-three/drei";
-import { MeshBasicMaterial, Object3D } from "three";
-import { Ball } from "@/components/molecules/ball/Ball";
-import { Floor } from "@/components/molecules/floor/Floor";
+import { OrbitControls, TransformControls } from "@react-three/drei";
+import { Physics, RapierRigidBody, RigidBody } from "@react-three/rapier";
+import { Object3D } from "three";
 import { Geometry } from "@/components/molecules/geometry/Geometry";
 import { CustomGeometry } from "@/components/molecules/custom-geometry/CustomGeometry";
-import { updateColor } from "@/utils/utils";
 
 export const MyScene = () => {
   const cubeRef = useRef<THREE.Mesh>(null);
-  const groupRef = useRef<THREE.Group>(null);
   const customGeometryRef = useRef<THREE.Mesh>(null);
+
+  const ballRBRef = useRef<RapierRigidBody>(null);
   const ballRef = useRef<THREE.Mesh>(null);
 
-  useFrame((state, delta) => {
-    const angle = state.clock.getElapsedTime();
-    /*
-    state.camera.position.x = Math.sin(angle) + delta * 2;
-    state.camera.position.z = Math.cos(angle) + delta * 2;
-    state.camera.lookAt(0, 0, 0); */
-
-    const cubeMaterial = cubeRef.current!.material as MeshBasicMaterial;
-    cubeMaterial.color.r = updateColor(cubeMaterial.color.r, delta);
-
-    groupRef.current!.rotation.y += delta * 0.0004;
-
-    ballRef.current!.rotation.y = angle * 2;
-  });
+  const jumpBall = () => {
+    console.log("jump", ballRef);
+    console.log("oreos", ballRBRef);
+    ballRBRef.current?.applyImpulse({ x: 0, y: 10, z: 0 }, true);
+  };
 
   return (
     <>
-      <directionalLight
-        position={[1, 2, 3]}
-        color="limegreen"
-        intensity={0.2}
-      />
+      <directionalLight castShadow position={[5, 10, 19]} intensity={0.8} />
       <ambientLight intensity={0.05} />
 
       <OrbitControls makeDefault />
 
-      <group ref={groupRef}>
-        <PivotControls anchor={[0, 0, 0]} scale={1.5} depthTest={false}>
+      <Physics debug>
+        <RigidBody>
           <Geometry myRef={cubeRef} />
-        </PivotControls>
+        </RigidBody>
 
-        <Ball myRef={ballRef} />
-      </group>
+        <RigidBody colliders="ball" ref={ballRBRef}>
+          <mesh ref={ballRef} position={[-3, 1, -1]} onClick={jumpBall}>
+            <sphereGeometry />
+            <meshStandardMaterial color="purple" />
+          </mesh>
+        </RigidBody>
 
-      <TransformControls object={customGeometryRef.current as Object3D} />
-      <CustomGeometry myRef={customGeometryRef} />
+        <TransformControls object={customGeometryRef.current as Object3D} />
+        <RigidBody>
+          <CustomGeometry myRef={customGeometryRef} />
+        </RigidBody>
 
-      <PivotControls>
-        <Text>I LOVE R3F</Text>
-      </PivotControls>
-
-      <Floor mirror={0.5} />
+        <RigidBody type="fixed">
+          <mesh receiveShadow scale={[20, 1, 20]} position-y={-1.5}>
+            <boxGeometry args={[3, 0.5, 3]} />
+            <meshStandardMaterial color="#636e72" />
+          </mesh>
+        </RigidBody>
+      </Physics>
     </>
   );
 };
