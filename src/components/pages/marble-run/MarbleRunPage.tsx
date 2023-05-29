@@ -6,6 +6,7 @@ import { OrbitControls } from "@react-three/drei";
 import { Physics, RapierRigidBody, RigidBody } from "@react-three/rapier";
 import { button, useControls } from "leva";
 import { RampitaModel } from "@/components/molecules/rampita-model/Model";
+import Elevator from "@/components/molecules/elevator/Elevator";
 
 export default function MarbleRunPage() {
   const { camera_position } = useControls({
@@ -86,7 +87,7 @@ function Scene() {
         shadow-camera-far={50}
       />
 
-      <OrbitControls />
+      <OrbitControls makeDefault />
 
       <Physics gravity={[0, -10, 0]}>
         {/* <RigidBody colliders="ball">
@@ -96,7 +97,7 @@ function Scene() {
           </mesh>
         </RigidBody> */}
 
-        <RigidBody ref={ballRBRef} colliders="ball" type="fixed">
+        <RigidBody ref={ballRBRef} colliders="ball">
           <mesh
             ref={ballRef}
             castShadow
@@ -124,6 +125,8 @@ function Scene() {
         <RigidBody type="fixed" colliders="trimesh">
           <RampitaModel />
         </RigidBody>
+
+        <Elevator />
 
         <RigidBody type="fixed">
           <mesh receiveShadow position-y={-1} scale={10}>
