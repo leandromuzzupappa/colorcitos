@@ -7,14 +7,17 @@ import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import { IModelProps } from "@/data/interfaces";
 
-export const Cloud = (props: IModelProps) => {
+export const Cloud = (props: IModelProps & { opacity: number }) => {
   const { nodes, materials } = useGLTF("/cloud/model.glb") as any;
   return (
     <group {...props} dispose={null}>
-      <mesh
-        geometry={nodes.Node.geometry}
-        material={materials["lambert2SG.001"]}
-      />
+      <mesh geometry={nodes.Node.geometry}>
+        <meshStandardMaterial
+          {...materials["lambert2SG.001"]}
+          transparent
+          opacity={props.opacity}
+        />
+      </mesh>
     </group>
   );
 };
