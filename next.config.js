@@ -6,8 +6,18 @@ const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
   },
-  images: {
-    domains: ["market-assets.fra1.cdn.digitaloceanspaces.com"],
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "*",
+          },
+        ],
+      },
+    ];
   },
 };
 
