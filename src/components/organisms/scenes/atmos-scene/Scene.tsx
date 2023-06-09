@@ -1,5 +1,6 @@
-import { Background } from "@/components/molecules/backgrounds/atmos-background/Background";
 import { OrbitControls } from "@react-three/drei";
+import { Background } from "@/components/molecules/backgrounds/atmos-background/Background";
+import { Airplane2 } from "@/components/molecules/airplane2/Airplane2";
 
 export const Scene = () => {
   return (
@@ -9,10 +10,7 @@ export const Scene = () => {
 
       <Background />
 
-      <mesh>
-        <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-        <meshStandardMaterial attach="material" color="hotpink" />
-      </mesh>
+      <Airplane2 rotation={[0, Math.PI, 0]} />
     </>
   );
 };
