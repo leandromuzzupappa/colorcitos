@@ -8,6 +8,7 @@ export const Background = () => {
       <Environment preset="sunset" />
       <Sphere scale={[100, 100, 100]} rotation-y={Math.PI / 2}>
         <LayerMaterial
+          color={"#ffffff"}
           lighting="physical"
           transmission={1}
           side={THREE.BackSide}
@@ -15,7 +16,7 @@ export const Background = () => {
           <Gradient
             colorA={"blue"}
             colorB={"red"}
-            axes="y"
+            axes={"y"}
             start={0}
             end={-0.5}
           />
