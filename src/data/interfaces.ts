@@ -9,6 +9,7 @@ export interface ICustomGeometryProps extends IRefMesh {}
 export interface IBallProps extends IRefMesh {}
 
 export interface IModelProps extends GroupProps {
+  myRef?: React.MutableRefObject<THREE.Group | null>;
   positionX?: number;
   positionY?: number;
   positionZ?: number;
